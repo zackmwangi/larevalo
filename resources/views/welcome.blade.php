@@ -12,6 +12,44 @@
 
     </head>
     <body class="font-sans antialiased dark:bg-white dark:text-black/50">
-        <h1>Welcome</h1>
+        <div class="relative flex items-top justify-center">
+        <h1>Welcome to the to-do list </h1>
+        
+        </br>
+        @foreach ( $todoItems as $todoItem)
+
+        <p>
+            item: {{ $todoItem->name }}
+            
+            <!-- &nbsp; -->
+            <form  action="{{ route('markItemComplete') }}" method="post">
+            @csrf
+            
+
+            
+            <button type="submit" name="itemId" value="{{ $todoItem->id }}">Mark as Completed</button>
+            </form>
+
+            
+            
+            <form  action="{{ route('deleteItem') }}" method="post">
+                @csrf
+            <button type="submit" name="itemId" value="{{ $todoItem->id }}">Delete Item</button>
+            </form>
+        </p>
+        <br/>
+            
+        @endforeach
+        </br>
+        <form  action="{{ route('saveItem') }}" method="post">
+
+            @csrf
+            
+            <label for="listItem"></label></br>
+            <input type="text" id="listItem" name="listItem"/>
+            </br>
+            <button type="submit">Save</button>
+        </form>
+        </div>
     </body>
 </html>
